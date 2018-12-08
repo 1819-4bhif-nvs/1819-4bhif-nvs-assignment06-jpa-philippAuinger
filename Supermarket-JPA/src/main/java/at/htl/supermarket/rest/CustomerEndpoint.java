@@ -1,29 +1,35 @@
 package at.htl.supermarket.rest;
 
 import at.htl.supermarket.model.Customer;
+import at.htl.supermarket.model.Product;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("customer")
+@Stateless
 public class CustomerEndpoint {
     @PersistenceContext
     EntityManager em;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Customer> getCustomers(){
+    public Response getCustomers(){
         TypedQuery<Customer> query = em.createNamedQuery("Customer.getAll", Customer.class);
-        return query.getResultList();
+        List<Customer> list = query.getResultList();
+        return Response.ok().entity(list).build();
     }
 
     @POST
-    public void postCustomer(Customer customer){
+    public Long postCustomer(Customer customer){
         em.persist(customer);
+        return customer.getId();
     }
 
     @DELETE

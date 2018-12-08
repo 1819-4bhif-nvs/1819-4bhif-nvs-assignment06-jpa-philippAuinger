@@ -1,38 +1,51 @@
 package at.htl.supermarket.rest;
 
+import at.htl.supermarket.model.Activity;
 import at.htl.supermarket.model.Product;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("product")
+@Stateless
 public class ProductEndpoint {
     @PersistenceContext
     EntityManager em;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getProducts(){
+    public Response getProducts(){
         TypedQuery<Product> query = em.createNamedQuery("Product.getAll", Product.class);
-        return query.getResultList();
+        List<Product> list = query.getResultList();
+        return Response.ok().entity(list).build();
     }
 
     @GET
     @Path("/getByBrand/{brand}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getByBrand(@PathParam("brand") String brand){
+    public Response getByBrand(@PathParam("brand") String brand){
         TypedQuery<Product> query = em.createNamedQuery("Product.getByBrand", Product.class);
         query.setParameter("brand",brand);
-        return query.getResultList();
+        List<Product> list = query.getResultList();
+        return Response.ok().entity(list).build();
+    }
+
+    @GET
+    @Path("{id}")
+    public Product getProduct(@PathParam("id") long id) {
+        return em.find(Product.class, id);
     }
 
     @POST
-    public void postProduct(Product product){
+    public Long postProduct(Product product){
         em.persist(product);
+        return product.getId();
     }
 
     @DELETE
@@ -40,7 +53,7 @@ public class ProductEndpoint {
     public void deleteProduct(@PathParam("id") long id){
         Product p = em.find(Product.class, id);
         if(p != null){
-            em.remove(p);
+            em.remove(em.contains(p) ? p : em.merge(p));
         }
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = "Customer.getAll", query = "select c from Customer c")
 })
-public class Customer {
+public class Customer extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,18 +17,20 @@ public class Customer {
     private int card_number;
     private String rank;
 
-    @OneToOne
-    private Person person;
+    //@OneToOne
+    //private Person person;
 
     public Customer() {
     }
 
-    public Customer(LocalDate accession_date, int loyalty_points, int card_number, String rank, Person person) {
+    public Customer(String firstname, String lastname, LocalDate birthdate, String mobilePhone, String email,
+                    LocalDate accession_date, int loyalty_points, int card_number, String rank) {
+        super(firstname, lastname, birthdate, mobilePhone, email);
         this.accession_date = accession_date;
         this.loyalty_points = loyalty_points;
         this.card_number = card_number;
         this.rank = rank;
-        this.person = person;
+        //this.person = person;
     }
 
     public Long getId() {
@@ -65,13 +67,5 @@ public class Customer {
 
     public void setRank(String rank) {
         this.rank = rank;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 }

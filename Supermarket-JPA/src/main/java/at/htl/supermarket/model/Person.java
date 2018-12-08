@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@NamedQueries({
+/*@NamedQueries({
         @NamedQuery(name = "Person.getAll", query = "select p from Person p"),
         @NamedQuery(name = "Person.getByLastname", query = "select p from Person p where p.lastname = :name")
-})
+})*/
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

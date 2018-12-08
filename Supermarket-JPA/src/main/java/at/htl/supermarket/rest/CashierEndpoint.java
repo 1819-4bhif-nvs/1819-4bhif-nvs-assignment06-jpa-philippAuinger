@@ -2,28 +2,33 @@ package at.htl.supermarket.rest;
 
 import at.htl.supermarket.model.Cashier;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("cashier")
+@Stateless
 public class CashierEndpoint {
     @PersistenceContext
     EntityManager em;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Cashier> getCashiers(){
+    public Response getCashiers(){
         TypedQuery<Cashier> query = em.createNamedQuery("Cashier.getAll", Cashier.class);
-        return query.getResultList();
+        List<Cashier> cashiers = query.getResultList();
+        return Response.ok().entity(cashiers).build();
     }
 
     @POST
-    public void postCashier(Cashier cashier){
+    public Long postCashier(Cashier cashier){
         em.persist(cashier);
+        return cashier.getId();
     }
 
     @DELETE

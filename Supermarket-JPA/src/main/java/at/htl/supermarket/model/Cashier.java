@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = "Cashier.getAll", query = "select c from Cashier c")
 })
-public class Cashier {
+public class Cashier extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,16 +16,18 @@ public class Cashier {
     private double salary;
 
 
-    @OneToOne
-    private Person person;
+    //@OneToOne
+    //private Person person;
 
     public Cashier() {
     }
 
-    public Cashier(LocalDate begin_date, double salary, Person person) {
+    public Cashier(String firstname, String lastname, LocalDate birthdate, String mobilePhone, String email,
+                   LocalDate begin_date, double salary) {
+        super(firstname, lastname, birthdate, mobilePhone, email);
         this.begin_date = begin_date;
         this.salary = salary;
-        this.person = person;
+        //this.person = person;
     }
 
     public Long getId() {
@@ -46,13 +48,5 @@ public class Cashier {
 
     public void setSalary(double salary) {
         this.salary = salary;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 }

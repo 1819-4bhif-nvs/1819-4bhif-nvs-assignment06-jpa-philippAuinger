@@ -1,5 +1,6 @@
 package at.htl.supermarket.model;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -17,15 +18,22 @@ public class Product {
     private String brand;
     private double price;
     private LocalDate best_before_date;
+    private int quantity;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "storage_id")
+    private Storage storage;
 
     public Product() {
     }
 
-    public Product(String name, double price, LocalDate best_before_date, String brand) {
+    public Product(String name, double price, LocalDate best_before_date, String brand, int quantity, Storage storage) {
         this.name = name;
         this.price = price;
         this.best_before_date = best_before_date;
         this.brand = brand;
+        this.quantity = quantity;
+        this.storage = storage;
     }
 
     public Long getId() {
@@ -62,6 +70,26 @@ public class Product {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantitiy(int quantitiy) {
+        this.quantity = quantitiy;
+    }
+
+    public Storage getStorage_id() {
+        return storage;
+    }
+
+    public void setStorage_id(int storage_id) {
+        this.storage = storage;
     }
 }
 
