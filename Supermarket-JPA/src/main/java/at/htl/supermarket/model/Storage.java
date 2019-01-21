@@ -7,7 +7,9 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Delivery.getAll", query = "select d from Storage d")
+        @NamedQuery(name = "Storage.getAll", query = "select s from Storage s"),
+        @NamedQuery(name = "Storage.getById", query = "select s from Storage s where s.id = :id")
+        //@NamedQuery(name = "Storage.getProducts", query= "select Storage.products from Storage s where s.id = :id")
 })
 public class Storage {
     @Id
@@ -15,7 +17,7 @@ public class Storage {
     private Long id;
 
     @JsonbTransient
-    @OneToMany(mappedBy="storage", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL,
             fetch=FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 

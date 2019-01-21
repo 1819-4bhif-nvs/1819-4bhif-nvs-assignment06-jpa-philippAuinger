@@ -29,13 +29,13 @@ public class SupermarketST {
     public void t01_productCrudTesting(){
         //json object
         JsonObject product  = Json.createObjectBuilder()
-                .add("best_before_date", "2018-12-19")
+                .
+        add("best_before_date", "2018-12-19")
                 .add("brand", "neue marke")
                 .add("price", 1.50)
                 .add("quantity", 10)
                 .add("name","Gulasch")
                 .build();
-
         //post
         Response productPut = target
                 .path("product")
@@ -57,10 +57,10 @@ public class SupermarketST {
         assertThat(resultJson.getString("name"), is("Gulasch"));
 
         //DELETE
-        target
+        /*target
                 .path("product")
                 .path(Long.toString(productId))
                 .request()
-                .delete();
+                .delete();*/
     }
 }

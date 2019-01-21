@@ -9,7 +9,6 @@ import java.time.LocalDate;
 })
 public class Customer extends Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate accession_date;

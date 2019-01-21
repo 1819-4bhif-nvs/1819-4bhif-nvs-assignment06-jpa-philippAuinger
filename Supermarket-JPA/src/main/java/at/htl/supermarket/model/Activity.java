@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = "Activity.getAll", query = "select a from Activity a"),
         @NamedQuery(name = "Activity.getByBrand", query = "select a from Activity a where a.product.brand = :brand"),
+
         @NamedQuery(name = "Activity.getByCustomerLastname", query = "select a from Activity a where a.customer.lastname = :name")
 })
 public class Activity {

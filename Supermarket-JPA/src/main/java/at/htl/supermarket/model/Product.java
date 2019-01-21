@@ -7,7 +7,8 @@ import java.time.LocalDate;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Product.getAll", query = "select p from Product p"),
-        @NamedQuery(name = "Product.getByBrand", query = "select p from Product p where p.brand = :brand")
+        @NamedQuery(name = "Product.getByBrand", query = "select p from Product p where p.brand = :brand"),
+        @NamedQuery(name = "Product.getByStorageId", query = "select p from Product p where p.storage.id = :id")
 })
 public class Product {
     @Id
@@ -20,8 +21,7 @@ public class Product {
     private LocalDate best_before_date;
     private int quantity;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "storage_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Storage storage;
 
     public Product() {

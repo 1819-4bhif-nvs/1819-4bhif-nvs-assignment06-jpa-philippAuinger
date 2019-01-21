@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 /*@NamedQueries({
         @NamedQuery(name = "Person.getAll", query = "select p from Person p"),
         @NamedQuery(name = "Person.getByLastname", query = "select p from Person p where p.lastname = :name")
 })*/
-public class Person {
+public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

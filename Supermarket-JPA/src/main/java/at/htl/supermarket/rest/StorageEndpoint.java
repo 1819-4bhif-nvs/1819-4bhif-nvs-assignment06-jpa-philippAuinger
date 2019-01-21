@@ -1,5 +1,6 @@
 package at.htl.supermarket.rest;
 
+import at.htl.supermarket.model.Product;
 import at.htl.supermarket.model.Storage;
 
 import javax.ejb.Stateless;
@@ -19,9 +20,30 @@ public class StorageEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStorage(){
-        TypedQuery<Storage> query = em.createNamedQuery("Delivery.getAll", Storage.class);
+    public Response getAll(){
+        TypedQuery<Storage> query = em.createNamedQuery("Storage.getAll", Storage.class);
         List<Storage> list = query.getResultList();
+        return Response.ok().entity(list).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{Id}")
+    public Response getById(@PathParam("Id") long id){
+        TypedQuery<Storage> query = em.createNamedQuery("Storage.getById", Storage.class);
+        query.setParameter("id",id);
+        List<Storage> list = query.getResultList();
+        return Response.ok().entity(list).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{Id}/getProducts")
+    public Response getProducts(@PathParam("Id") long id){
+        TypedQuery<Product> query = em.createNamedQuery("Product." +
+                "", Product.class);
+        query.setParameter("id" , id);
+        List<Product> list = query.getResultList();
         return Response.ok().entity(list).build();
     }
 

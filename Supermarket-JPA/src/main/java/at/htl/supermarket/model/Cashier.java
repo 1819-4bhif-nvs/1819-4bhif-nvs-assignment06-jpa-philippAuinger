@@ -9,7 +9,6 @@ import java.time.LocalDate;
 })
 public class Cashier extends Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate begin_date;
