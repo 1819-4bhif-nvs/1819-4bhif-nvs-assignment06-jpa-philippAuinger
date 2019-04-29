@@ -2,6 +2,7 @@ package at.htl.supermarket.rest;
 
 import at.htl.supermarket.business.ProductDAO;
 import at.htl.supermarket.model.Product;
+import io.swagger.annotations.Api;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -12,6 +13,11 @@ import java.net.URI;
 import java.util.List;
 
 @Path("product")
+<<<<<<< HEAD
+=======
+@Stateless
+@Api(value = "ProductEndpoint")
+>>>>>>> 6a60ace9de2c80dae68af713d0147a18f5eff292
 public class ProductEndpoint {
     @Inject
     ProductDAO productDAO;

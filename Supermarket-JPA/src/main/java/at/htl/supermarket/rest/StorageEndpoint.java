@@ -2,6 +2,7 @@ package at.htl.supermarket.rest;
 
 import at.htl.supermarket.model.Product;
 import at.htl.supermarket.model.Storage;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Path("storage")
 @Stateless
+@Api(value = "StorageEndpoint")
 public class StorageEndpoint {
     @PersistenceContext
     EntityManager em;

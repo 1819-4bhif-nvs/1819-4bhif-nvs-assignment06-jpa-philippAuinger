@@ -1,6 +1,7 @@
 package at.htl.supermarket.rest;
 
 import at.htl.supermarket.model.Activity;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Path("activity")
 @Stateless
+@Api(value = "ActivityEndpoint")
 public class ActivityEndpoint {
     @PersistenceContext
     EntityManager em;
